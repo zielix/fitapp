@@ -124,3 +124,28 @@ renderList();
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(console.error);
 }
+
+// ===== Niespodzianka dla Gosi =====
+let heartTimer = null;
+
+function spawnHeart() {
+  const h = document.createElement('span');
+  h.textContent = ['💖', '💕', '🎵', '✨', '🌸'][Math.floor(Math.random() * 5)];
+  h.style.left = Math.random() * 100 + 'vw';
+  h.style.fontSize = 18 + Math.random() * 22 + 'px';
+  h.style.animationDuration = 3 + Math.random() * 3 + 's';
+  $('#hearts').appendChild(h);
+  h.addEventListener('animationend', () => h.remove());
+}
+
+$('#gosiaBtn').addEventListener('click', () => {
+  $('#pigOverlay').hidden = false;
+  if (navigator.vibrate) navigator.vibrate(50);
+  heartTimer = setInterval(spawnHeart, 250);
+});
+
+$('#pigOverlay').addEventListener('click', () => {
+  $('#pigOverlay').hidden = true;
+  clearInterval(heartTimer);
+  $('#hearts').innerHTML = '';
+});

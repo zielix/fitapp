@@ -1,7 +1,7 @@
 // Service worker: zapisuje pliki aplikacji w pamięci telefonu,
 // dzięki czemu FitLog uruchamia się także bez internetu.
 // Po każdej zmianie plików podbij numer wersji, żeby telefon pobrał nowe.
-const CACHE = 'fitlog-v1';
+const CACHE = 'fitlog-v2';
 const FILES = ['./', 'index.html', 'styles.css', 'app.js', 'manifest.json', 'icons/icon-180.png', 'icons/icon-192.png'];
 
 self.addEventListener('install', (e) => {

@@ -93,3 +93,53 @@ button.secondary { background: var(--card); color: var(--text); border: 1px soli
   box-shadow: 0 6px 20px rgba(0,0,0,.4);
 }
 .fab.hidden { display: none; }
+
+/* ===== Niespodzianka dla Gosi ===== */
+.top-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.gosia-btn {
+  background: linear-gradient(135deg, #f9a8d4, #f472b6); color: #500724;
+  padding: 8px 14px; font-size: 14px; border-radius: 999px;
+}
+
+.pig-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: radial-gradient(circle, #fdf2f8 0%, #fbcfe8 70%, #f9a8d4 100%);
+  overflow: hidden; animation: fadeIn .3s ease;
+}
+.pig-overlay[hidden] { display: none; }
+.pig { width: min(70vw, 300px); overflow: visible; }
+.pig-text { color: #9d174d; font-size: 28px; font-weight: 800; margin: 12px 0 4px; animation: pulse 1s ease-in-out infinite; }
+.pig-hint { color: #be185d; font-size: 13px; opacity: .7; margin: 0; }
+
+/* świnka podskakuje i kołysze się w rytm */
+.pig-body { transform-origin: 100px 160px; animation: dance .6s ease-in-out infinite alternate; }
+.pig-head { transform-origin: 100px 100px; animation: headBob .3s ease-in-out infinite alternate; }
+.ear-l { transform-origin: 70px 36px; animation: earL .3s ease-in-out infinite alternate; }
+.ear-r { transform-origin: 130px 36px; animation: earR .3s ease-in-out infinite alternate; }
+.arm-l { transform-origin: 72px 115px; animation: armL .6s ease-in-out infinite alternate; }
+.arm-r { transform-origin: 128px 115px; animation: armR .6s ease-in-out infinite alternate; }
+.leg-l { transform-origin: 77px 150px; animation: legL .6s ease-in-out infinite alternate; }
+.leg-r { transform-origin: 123px 150px; animation: legR .6s ease-in-out infinite alternate; }
+.tail { transform-origin: 150px 120px; animation: tail .2s linear infinite alternate; }
+
+@keyframes dance   { from { transform: translateY(0) rotate(-8deg); } to { transform: translateY(-14px) rotate(8deg); } }
+@keyframes headBob { from { transform: rotate(-6deg); } to { transform: rotate(6deg); } }
+@keyframes earL    { to { transform: rotate(-15deg); } }
+@keyframes earR    { to { transform: rotate(15deg); } }
+@keyframes armL    { from { transform: rotate(30deg); } to { transform: rotate(-60deg); } }
+@keyframes armR    { from { transform: rotate(60deg); } to { transform: rotate(-30deg); } }
+@keyframes legL    { from { transform: rotate(-20deg); } to { transform: rotate(15deg); } }
+@keyframes legR    { from { transform: rotate(-15deg); } to { transform: rotate(20deg); } }
+@keyframes tail    { to { transform: rotate(25deg); } }
+@keyframes pulse   { 50% { transform: scale(1.08); } }
+@keyframes fadeIn  { from { opacity: 0; } }
+
+/* serduszka lecące do góry */
+.hearts span {
+  position: absolute; bottom: -40px; font-size: 24px;
+  animation: floatUp linear forwards;
+}
+@keyframes floatUp {
+  to { transform: translateY(-110vh) rotate(30deg); opacity: 0; }
+}
