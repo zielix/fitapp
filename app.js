@@ -1,6 +1,8 @@
 // ===== Dane =====
 // Treningi trzymamy w localStorage telefonu (na start wystarczy, bez serwera).
 const STORAGE_KEY = 'fitlog.workouts';
+// Numer wersji widoczny na dole ekranu — łatwo sprawdzić, czy telefon ma najnowszą.
+const APP_VERSION = '3';
 
 function loadWorkouts() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
@@ -119,10 +121,28 @@ $('#addExercise').addEventListener('click', addExerciseRow);
 $('#cancelAdd').addEventListener('click', () => showView('list'));
 
 renderList();
+$('#version').textContent = 'wersja ' + APP_VERSION;
 
 // ===== PWA: service worker (działanie offline) =====
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(console.error);
+  // updateViaCache: 'none' — sprawdzając aktualizację, zawsze pytaj serwer o sw.js
+  navigator.serviceWorker.register('sw.js', { updateViaCache: 'none' }).then((reg) => {
+    // Na iPhonie aplikacja często "wraca z tła" zamiast startować od nowa,
+    // więc przy każdym powrocie na ekran sprawdzamy, czy jest nowa wersja.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') reg.update();
+    });
+  }).catch(console.error);
+
+  // Gdy nowa wersja przejmie kontrolę — przeładuj stronę (tylko przy aktualizacji,
+  // nie przy pierwszej instalacji).
+  const hadController = !!navigator.serviceWorker.controller;
+  let reloaded = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || reloaded) return;
+    reloaded = true;
+    location.reload();
+  });
 }
 
 // ===== Niespodzianka dla Gosi =====
@@ -140,6 +160,7 @@ function spawnHeart() {
 
 $('#gosiaBtn').addEventListener('click', () => {
   $('#pigOverlay').hidden = false;
+  clearInterval(heartTimer);
   if (navigator.vibrate) navigator.vibrate(50);
   heartTimer = setInterval(spawnHeart, 250);
 });

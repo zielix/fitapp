@@ -143,3 +143,5 @@ button.secondary { background: var(--card); color: var(--text); border: 1px soli
 @keyframes floatUp {
   to { transform: translateY(-110vh) rotate(30deg); opacity: 0; }
 }
+
+.version { text-align: center; color: var(--muted); font-size: 12px; opacity: .6; margin-top: 32px; }
