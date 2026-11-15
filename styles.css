@@ -97,8 +97,9 @@ button.secondary { background: var(--card); color: var(--text); border: 1px soli
 /* ===== Niespodzianka dla Gosi ===== */
 .top-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .gosia-btn {
-  background: linear-gradient(135deg, #f9a8d4, #f472b6); color: #500724;
-  padding: 8px 14px; font-size: 14px; border-radius: 999px;
+  /* celowo niepozorny — wygląda jak zwykły link */
+  background: none; color: var(--muted);
+  padding: 6px 4px; font-size: 14px; font-weight: 400;
 }
 
 .pig-overlay {

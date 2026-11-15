@@ -2,7 +2,7 @@
 // Treningi trzymamy w localStorage telefonu (na start wystarczy, bez serwera).
 const STORAGE_KEY = 'fitlog.workouts';
 // Numer wersji widoczny na dole ekranu — łatwo sprawdzić, czy telefon ma najnowszą.
-const APP_VERSION = '3';
+const APP_VERSION = '4';
 
 function loadWorkouts() {
   try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
