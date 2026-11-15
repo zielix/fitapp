@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <!-- viewport-fit=cover: aplikacja wchodzi pod "notch" iPhone'a -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>FitLog</title>
+
+  <!-- PWA: manifest + ustawienia specyficzne dla iOS -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FitLog">
+  <meta name="theme-color" content="#0f172a">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <h1>FitLog</h1>
+    <p class="subtitle" id="weekSummary">—</p>
+  </header>
+
+  <main>
+    <!-- Widok 1: lista treningów -->
+    <section id="view-list" class="view active">
+      <div class="stats">
+        <div class="stat"><span id="statWeek">0</span><small>w tym tygodniu</small></div>
+        <div class="stat"><span id="statTotal">0</span><small>wszystkich</small></div>
+        <div class="stat"><span id="statVolume">0</span><small>kg łącznie (tydz.)</small></div>
+      </div>
+      <h2>Historia</h2>
+      <ul id="workoutList" class="list"></ul>
+      <p id="emptyState" class="empty">Brak treningów. Dodaj pierwszy przyciskiem +</p>
+    </section>
+
+    <!-- Widok 2: nowy trening -->
+    <section id="view-add" class="view">
+      <h2>Nowy trening</h2>
+      <form id="workoutForm">
+        <label>Nazwa
+          <input name="name" placeholder="np. Push / Nogi / Bieganie" required>
+        </label>
+        <label>Data
+          <input name="date" type="date" required>
+        </label>
+
+        <h3>Ćwiczenia</h3>
+        <div id="exercises"></div>
+        <button type="button" id="addExercise" class="secondary">+ Dodaj ćwiczenie</button>
+
+        <label>Notatka
+          <textarea name="note" rows="2" placeholder="Jak poszło?"></textarea>
+        </label>
+
+        <div class="row">
+          <button type="button" id="cancelAdd" class="secondary">Anuluj</button>
+          <button type="submit">Zapisz</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <button id="fab" class="fab" aria-label="Dodaj trening">+</button>
+
+  <!-- Szablon jednego ćwiczenia (klonowany przez JS) -->
+  <template id="exerciseTpl">
+    <div class="exercise">
+      <input class="ex-name" placeholder="Ćwiczenie (np. Wyciskanie)" required>
+      <div class="ex-nums">
+        <input class="ex-sets" type="number" inputmode="numeric" placeholder="serie" min="1">
+        <input class="ex-reps" type="number" inputmode="numeric" placeholder="powt." min="1">
+        <input class="ex-weight" type="number" inputmode="decimal" placeholder="kg" step="0.5" min="0">
+        <button type="button" class="ex-remove" aria-label="Usuń">✕</button>
+      </div>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
